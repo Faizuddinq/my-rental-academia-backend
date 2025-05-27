@@ -1,0 +1,333 @@
+{
+  "info": {
+    "name": "HyperGro API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"StrongPass123!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.token) {",
+                  "    pm.environment.set('AUTH_TOKEN', jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"StrongPass123!\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Properties",
+      "item": [
+        {
+          "name": "Create Property",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data._id) {",
+                  "    pm.environment.set('PROPERTY_ID', jsonData.data._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/properties",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Modern 3BHK Apartment\",\n    \"propertyType\": \"apartment\",\n    \"price\": 250000,\n    \"location\": {\n        \"state\": \"Maharashtra\",\n        \"city\": \"Mumbai\"\n    },\n    \"area\": 1200,\n    \"bedrooms\": 3,\n    \"bathrooms\": 2,\n    \"amenities\": [\"parking\", \"gym\", \"swimming pool\", \"security\"],\n    \"furnished\": true,\n    \"availableFrom\": \"2025-06-01\",\n    \"listedBy\": \"owner\",\n    \"tags\": [\"premium\", \"sea-view\", \"gated-community\"],\n    \"listingType\": \"rent\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Properties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/properties",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "location.state",
+                  "value": "Maharashtra"
+                },
+                {
+                  "key": "priceMin",
+                  "value": "100000"
+                },
+                {
+                  "key": "priceMax",
+                  "value": "500000"
+                },
+                {
+                  "key": "bedrooms",
+                  "value": "3"
+                },
+                {
+                  "key": "furnished",
+                  "value": "true"
+                },
+                {
+                  "key": "amenities",
+                  "value": "parking,gym,security"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Property by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/properties/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties", "{{PROPERTY_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Property",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/properties/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties", "{{PROPERTY_ID}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"price\": 275000,\n    \"furnished\": false,\n    \"amenities\": [\"parking\", \"gym\", \"security\"],\n    \"tags\": [\"premium\", \"gated-community\"]\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Property",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/properties/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties", "{{PROPERTY_ID}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Favorites",
+      "item": [
+        {
+          "name": "Get Favorites",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/favorites",
+              "host": ["{{BASE_URL}}"],
+              "path": ["favorites"]
+            }
+          }
+        },
+        {
+          "name": "Add to Favorites",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/favorites/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["favorites", "{{PROPERTY_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "Remove from Favorites",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/favorites/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["favorites", "{{PROPERTY_ID}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Get Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/recommendations",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recommendations"]
+            }
+          }
+        },
+        {
+          "name": "Recommend Property",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/recommendations/{{PROPERTY_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recommendations", "{{PROPERTY_ID}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"friend@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Recommendation Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/recommendations/stats",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recommendations", "stats"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
