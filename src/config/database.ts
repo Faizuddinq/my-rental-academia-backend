@@ -1,15 +1,26 @@
+import {logger}  from '../utils/logger';
 import mongoose from 'mongoose';
-import { logger } from '../utils/logger';
 
-export const connectDB = async (): Promise<void> => {
+let isConnected = false;
+
+export const connectDB = async () => {
+  if (isConnected) return;
+
+  if (!process.env.MONGODB_URI) {
+    throw new Error("Missing MONGODB_URI");
+  }
+
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/myrentalacademia';
-    
-    await mongoose.connect(mongoURI);
-    
-    logger.info('MongoDB Connected Successfully');
-  } catch (error) {
-    logger.error('MongoDB Connection Error:', error);
-    process.exit(1);
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: 'myrentalacademia',
+      bufferCommands: false,
+      maxPoolSize: 10,
+    });
+
+    isConnected = true;
+    logger.info("MongoDB connected");
+  } catch (err) {
+    logger.error("MongoDB connection error:", err);
+    throw err;
   }
 };
