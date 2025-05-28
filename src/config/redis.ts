@@ -2,7 +2,7 @@ import Redis from 'ioredis';
 import { logger } from '../utils/logger';
 
 let redisClient: Redis | null = null;
-
+//redis client
 export const getRedisClient = () => {
   if (!redisClient) {
     redisClient = new Redis(process.env.REDIS_URL || '', {
