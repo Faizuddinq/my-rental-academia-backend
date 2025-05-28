@@ -1,5 +1,7 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -10,8 +12,10 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 3000}`,
-        description: 'Development server',
+        url: isProduction
+          ? 'https://my-rental-academia-backend.vercel.app'
+          : `http://localhost:${process.env.PORT || 3000}`,
+        description: isProduction ? 'Production server' : 'Development server',
       },
     ],
     components: {
