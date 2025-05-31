@@ -10,7 +10,7 @@ const router = Router();
 router.get('/health', (_, res) => {
   res.status(200).json({
     status: 'success',
-    message: 'Server is healthy',
+    message: 'Server is Healthy.',
     timestamp: new Date().toISOString()
   });
 });

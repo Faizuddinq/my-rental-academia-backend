@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "HyperGro API Tests",
+    "name": "HyperGro 2 API Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -69,7 +69,7 @@
       "name": "Properties",
       "item": [
         {
-          "name": "Create Property",
+          "name": "Create Property - Green Sea Bungalow",
           "event": [
             {
               "listen": "test",
@@ -103,7 +103,57 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"title\": \"Modern 3BHK Apartment\",\n    \"propertyType\": \"apartment\",\n    \"price\": 250000,\n    \"location\": {\n        \"state\": \"Maharashtra\",\n        \"city\": \"Mumbai\"\n    },\n    \"area\": 1200,\n    \"bedrooms\": 3,\n    \"bathrooms\": 2,\n    \"amenities\": [\"parking\", \"gym\", \"swimming pool\", \"security\"],\n    \"furnished\": true,\n    \"availableFrom\": \"2025-06-01\",\n    \"listedBy\": \"owner\",\n    \"tags\": [\"premium\", \"sea-view\", \"gated-community\"],\n    \"listingType\": \"rent\"\n}"
+              "raw": "{\n    \"title\": \"Green sea\",\n    \"propertyType\": \"bungalow\",\n    \"price\": 23825834,\n    \"location\": {\n        \"state\": \"Tamil Nadu\",\n        \"city\": \"Coimbatore\"\n    },\n    \"area\": 4102,\n    \"bedrooms\": 5,\n    \"bathrooms\": 2,\n    \"amenities\": [\"lift\", \"clubhouse\", \"security\", \"gym\", \"garden\", \"pool\"],\n    \"furnished\": false,\n    \"availableFrom\": \"2025-10-14\",\n    \"listedBy\": \"builder\",\n    \"tags\": [\"gated-community\", \"corner-plot\"],\n    \"colorTheme\": \"#6ab45e\",\n    \"rating\": 4.7,\n    \"isVerified\": true,\n    \"listingType\": \"rent\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Property - Villa in Mysore",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/properties",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Usually each keep team allow\",\n    \"propertyType\": \"villa\",\n    \"price\": 24733522,\n    \"location\": {\n        \"state\": \"Karnataka\",\n        \"city\": \"Mysore\"\n    },\n    \"area\": 732,\n    \"bedrooms\": 5,\n    \"bathrooms\": 1,\n    \"amenities\": [\"lift\", \"power-backup\", \"security\", \"wifi\", \"pool\", \"clubhouse\"],\n    \"furnished\": true,\n    \"availableFrom\": \"2025-09-06\",\n    \"listedBy\": \"builder\",\n    \"tags\": [\"luxury\", \"lake-view\", \"affordable\"],\n    \"colorTheme\": \"#1361c4\",\n    \"rating\": 1.3,\n    \"isVerified\": false,\n    \"listingType\": \"sale\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Property - Apartment in Kolkata",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/properties",
+              "host": ["{{BASE_URL}}"],
+              "path": ["properties"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Billion somebody research perform\",\n    \"propertyType\": \"apartment\",\n    \"price\": 17965682,\n    \"location\": {\n        \"state\": \"West Bengal\",\n        \"city\": \"Kolkata\"\n    },\n    \"area\": 3401,\n    \"bedrooms\": 5,\n    \"bathrooms\": 4,\n    \"amenities\": [\"garden\", \"security\", \"pool\", \"power-backup\", \"parking\"],\n    \"furnished\": \"semi\",\n    \"availableFrom\": \"2025-10-08\",\n    \"listedBy\": \"owner\",\n    \"tags\": [\"corner-plot\", \"family-friendly\", \"near-metro\"],\n    \"colorTheme\": \"#b48903\",\n    \"rating\": 4.3,\n    \"isVerified\": false,\n    \"listingType\": \"sale\"\n}"
             }
           }
         },
@@ -127,27 +177,23 @@
                 },
                 {
                   "key": "location.state",
-                  "value": "Maharashtra"
+                  "value": "Tamil Nadu"
                 },
                 {
                   "key": "priceMin",
-                  "value": "100000"
+                  "value": "10000000"
                 },
                 {
                   "key": "priceMax",
-                  "value": "500000"
+                  "value": "30000000"
                 },
                 {
                   "key": "bedrooms",
-                  "value": "3"
-                },
-                {
-                  "key": "furnished",
-                  "value": "true"
+                  "value": "5"
                 },
                 {
                   "key": "amenities",
-                  "value": "parking,gym,security"
+                  "value": "pool,security,gym"
                 }
               ]
             }
@@ -186,7 +232,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"price\": 275000,\n    \"furnished\": false,\n    \"amenities\": [\"parking\", \"gym\", \"security\"],\n    \"tags\": [\"premium\", \"gated-community\"]\n}"
+              "raw": "{\n    \"price\": 24000000,\n    \"furnished\": true,\n    \"amenities\": [\"lift\", \"clubhouse\", \"security\", \"gym\", \"garden\", \"pool\", \"parking\"],\n    \"tags\": [\"gated-community\", \"corner-plot\", \"premium\"]\n}"
             }
           }
         },
@@ -306,7 +352,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"friend@example.com\"\n}"
+              "raw": "{\n    \"email\": \"friend@example.com\",\n    \"message\": \"Check out this beautiful bungalow in Coimbatore with great amenities!\"\n}"
             }
           }
         },
